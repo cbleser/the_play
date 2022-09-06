@@ -23,7 +23,7 @@ enum Ranks {
     Ten,
     Knight,
     Dame,
-    King
+    King,
 }
 
 struct Card {
@@ -58,16 +58,17 @@ struct Deck {
         }
     }
 
-	pure nothrow @ngc {
-	bool empty() const {
-return top_card >= cards.length;
-}
+    pure nothrow @nogc {
+        bool empty() const {
+            return top_card >= cards.length;
+        }
 
-	const(Card) front() const {
-return cards[top_card];
-}
+        const(Card) front() const {
+            return cards[top_card];
+        }
 
-	void popFront() {
-	top_card++;
-}
+        void popFront() {
+            top_card++;
+        }
+    }
 }
