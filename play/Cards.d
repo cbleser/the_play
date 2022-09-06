@@ -36,9 +36,7 @@ struct Card {
 
 @safe
 struct Deck {
-pragma(msg, EnumMembers!Colours.length); 
-pragma(msg, [EnumMembers!Colours].length); 
-protected {
+    protected {
         Card[EnumMembers!Colours.length * EnumMembers!Ranks.length] cards;
         size_t top_card;
     }
@@ -91,18 +89,15 @@ protected {
 unittest {
 	import std.stdio;
     const standard_deck = Deck(0);
-    //   foreach (i; 0 .. 100) {
     foreach (s; 0 .. 10_000) {
         const new_deck = Deck(s);
         const col = new_deck.correlate(standard_deck);
   	if (s % 100i==0) {
-writeln;
+            writeln;
 			writef("%6d ", s);
 		}
 	       if (col > 5) {
- write("#");
-			//           writefln("s=%d col=%d", s, col);
-        ////}
+            write("#");
               }
 	}
 }
