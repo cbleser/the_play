@@ -2,16 +2,18 @@ module play.Cards;
 
 import std.traits : EnumMembers;
 import std.random;
+import std.range : zip;
+import std.algorithm.searching : count;
 
 enum Colours {
     heart,
     diamond,
     spade,
+	club,
 }
 
 enum Ranks {
     Ace,
-    One,
     Two,
     Three,
     Four,
@@ -26,14 +28,21 @@ enum Ranks {
     King,
 }
 
+@safe
 struct Card {
     Colours colour;
     Ranks rank;
 }
 
+@safe
 struct Deck {
-    protected Card[EnumMembers!Colours.length * EnumMembers!Ranks.length] cards;
-    protected size_t top_card;
+pragma(msg, EnumMembers!Colours.length); 
+pragma(msg, [EnumMembers!Colours].length); 
+protected {
+        Card[EnumMembers!Colours.length * EnumMembers!Ranks.length] cards;
+        size_t top_card;
+    }
+    @disable this();
     this(const size_t times) {
         size_t index;
         foreach (c; EnumMembers!Colours) {
@@ -70,5 +79,30 @@ struct Deck {
         void popFront() {
             top_card++;
         }
+
+        uint correlate(const Deck rhs) const {
+            return zip(cards[], rhs.cards[])
+                .count!(m => m[0] == m[1]) & uint.max;
+        }
     }
+}
+
+@safe
+unittest {
+	import std.stdio;
+    const standard_deck = Deck(0);
+    //   foreach (i; 0 .. 100) {
+    foreach (s; 0 .. 10_000) {
+        const new_deck = Deck(s);
+        const col = new_deck.correlate(standard_deck);
+  	if (s % 100i==0) {
+writeln;
+			writef("%6d ", s);
+		}
+	       if (col > 5) {
+ write("#");
+			//           writefln("s=%d col=%d", s, col);
+        ////}
+              }
+	}
 }
