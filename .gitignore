@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/the_play
+the_play.so
+the_play.dylib
+the_play.dll
+the_play.a
+the_play.lib
+the_play-test-*
+*.exe
+*.o
+*.obj
+*.lst
