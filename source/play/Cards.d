@@ -6,9 +6,9 @@ import std.range : zip;
 import std.algorithm.searching : count;
 
 enum Colours {
+    spade,
     heart,
     diamond,
-    spade,
 	club,
 }
 
